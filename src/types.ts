@@ -8,6 +8,7 @@ export interface ExtractedDocument {
   pageRange?: string;
   index?: number;
   original?: string;
+  sourceFileName?: string;
 }
 
 export enum ProcessingStatus {
