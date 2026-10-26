@@ -106,11 +106,10 @@ app.post("/api/extract", async (req, res) => {
       "Phân tích và trích xuất danh sách văn bản sang JSON theo đúng schema và hướng dẫn hệ thống.\n" +
       "LƯU Ý ĐẶC BIỆT: Đối với các văn bản là danh sách, TRÊN 4 CÁ NHÂN THÌ TUYỆT ĐỐI KHÔNG LIỆT KÊ TÊN TỪNG CÁ NHÂN trong trích yếu/tiêu đề (chỉ ghi khái quát nội dung/danh sách); Nếu có từ 1 đến 4 cá nhân thì ghi đầy đủ họ tên; GIỮ NGUYÊN VĂN BẢN TIẾNG PHÁP, KHÔNG DỊCH SANG TIẾNG VIỆT.";
 
-    // Prioritize candidate Gemini models
+    // Prioritize candidate Gemini models per Google GenAI API recommendations
     const CANDIDATE_MODELS = [
-      "gemini-2.5-flash",
-      "gemini-3.1-flash-lite",
       "gemini-3.8-flash",
+      "gemini-3.1-flash-lite",
       "gemini-flash-latest",
     ];
 
