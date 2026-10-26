@@ -7,7 +7,7 @@ import { ExtractedDocument, ProcessingStatus, ExcelExportConfig, ThemeConfig, Hi
 import { 
   FileSpreadsheet, Loader2, AlertCircle, Check, Copy, Settings, X, 
   UploadCloud, History, Trash2, Cpu, Palette, Monitor, FileText, Image as ImageIcon,
-  Images, Plus, Sparkles, Globe, Layers, Play, ArrowUp, ArrowDown, RotateCcw
+  Images, Plus, Sparkles, Globe, Layers, Play, ArrowUp, ArrowDown, RotateCcw, Users
 } from 'lucide-react';
 
 const THEMES: ThemeConfig[] = [
@@ -389,7 +389,7 @@ const App: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Feature indicators for French & Telex */}
+                  {/* Feature indicators for French, Telex & List rule */}
                   <div className="flex flex-wrap items-center gap-3">
                     <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 font-bold text-xs rounded-full border border-blue-100 shadow-sm">
                       <Globe size={14} className="text-blue-600" />
@@ -398,6 +398,10 @@ const App: React.FC = () => {
                     <span className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-full border border-emerald-100 shadow-sm">
                       <Sparkles size={14} className="text-emerald-600" />
                       Giải mã Telex & Thêm dấu tiếng Việt
+                    </span>
+                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-800 font-bold text-xs rounded-full border border-amber-100 shadow-sm" title="Văn bản danh sách trên 4 cá nhân: không liệt kê tên trong trích yếu (chỉ ghi khái quát); từ 1-4 cá nhân ghi đầy đủ họ tên">
+                      <Users size={14} className="text-amber-600" />
+                      Danh sách &gt; 4 cá nhân: Không liệt kê tên
                     </span>
                   </div>
                 </div>

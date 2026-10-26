@@ -85,7 +85,9 @@ app.post("/api/extract", async (req, res) => {
       "   - Nếu văn bản tiếng Việt hoàn toàn không có dấu (không dùng Telex), bạn phải dựa vào ngữ cảnh để thêm dấu tiếng Việt một cách chính xác nhất.\n\n" +
       "3. TÓM TẮT TRÍCH YẾU (Summary):\n" +
       "   - Phải tóm tắt rõ ràng, ngắn gọn nhưng PHẢI ĐẦY ĐỦ NỘI DUNG cốt lõi.\n" +
-      "   - TUYỆT ĐỐI KHÔNG BỎ SÓT TÊN CÁ NHÂN TRONG VĂN BẢN (ĐẶC BIỆT CHÚ Ý): Nếu văn bản đề cập đến tên cá nhân đối tượng (Ví dụ: cấp sổ ưu đãi giáo dục, đào tạo cho em Nguyễn Văn A; khen thưởng ông Trần Văn B; trợ cấp cho bà Lê Thị C; điều động, bổ nhiệm ông Phạm Văn D...), bạn PHẢI BẮT BUỘC ghi đầy đủ họ và tên cá nhân đó trong phần trích yếu. TUYỆT ĐỐI KHÔNG ĐƯỢC TỰ Ý CẮT BỎ TÊN CÁ NHÂN.\n" +
+      "   - QUY TẮC BẮT BUỘC VỀ TÊN CÁ NHÂN TRONG TRÍCH YẾU NỘI DUNG:\n" +
+      "     + ĐỐI VỚI VĂN BẢN CÓ TỪ 1 ĐẾN 4 CÁ NHÂN: BẮT BUỘC ghi đầy đủ họ và tên của từng cá nhân đó trong phần trích yếu (Ví dụ: cấp sổ ưu đãi giáo dục cho em Nguyễn Văn A; khen thưởng ông Trần Văn B và bà Lê Thị C; điều động các ông Nguyễn Văn A, Trần Văn B, Lê Văn C...). TUYỆT ĐỐI KHÔNG BỎ SÓT TÊN CÁ NHÂN khi số lượng từ 1 đến 4 người.\n" +
+      "     + ĐỐI VỚI CÁC VĂN BẢN LÀ DANH SÁCH HOẶC ĐỀ CẬP ĐẾN TRÊN 4 CÁ NHÂN (từ 5 cá nhân trở lên): TUYỆT ĐỐI KHÔNG LIỆT KÊ TÊN TỪNG CÁ NHÂN TRONG TIÊU ĐỀ / TRÍCH YẾU. Chỉ ghi khái quát nội dung và đối tượng chung của danh sách (Ví dụ: 'về việc phê duyệt danh sách cán bộ, giáo viên được khen thưởng...', 'kèm theo danh sách các hộ gia đình được trợ cấp khó khăn...', 'về việc điều động, luân chuyển công chức...', 'danh sách học sinh được cấp học bổng...').\n" +
       "   - Trích yếu phải bám sát nội dung trong văn bản, phản ánh đúng tinh thần và các thông tin quan trọng nhất.\n" +
       "   - TUYỆT ĐỐI KHÔNG lặp lại tên loại văn bản (docType) trong phần trích yếu.\n" +
       "   - Bắt đầu trích yếu bằng chữ thường (Ví dụ: 'về việc...', 'kết quả...', 'au sujet de...', 'sur...', 'relative à...'). CHỈ viết hoa nếu là tên riêng cá nhân, tổ chức hoặc địa danh.\n\n" +
@@ -102,7 +104,7 @@ app.post("/api/extract", async (req, res) => {
 
     const prompt = 
       "Phân tích và trích xuất danh sách văn bản sang JSON theo đúng schema và hướng dẫn hệ thống.\n" +
-      "CHÚ Ý: TUYỆT ĐỐI KHÔNG BỎ SÓT TÊN CÁ NHÂN trong trích yếu nội dung văn bản; GIỮ NGUYÊN VĂN BẢN TIẾNG PHÁP, KHÔNG DỊCH SANG TIẾNG VIỆT.";
+      "LƯU Ý ĐẶC BIỆT: Đối với các văn bản là danh sách, TRÊN 4 CÁ NHÂN THÌ TUYỆT ĐỐI KHÔNG LIỆT KÊ TÊN TỪNG CÁ NHÂN trong trích yếu/tiêu đề (chỉ ghi khái quát nội dung/danh sách); Nếu có từ 1 đến 4 cá nhân thì ghi đầy đủ họ tên; GIỮ NGUYÊN VĂN BẢN TIẾNG PHÁP, KHÔNG DỊCH SANG TIẾNG VIỆT.";
 
     // Prioritize candidate Gemini models
     const CANDIDATE_MODELS = [
@@ -147,7 +149,7 @@ app.post("/api/extract", async (req, res) => {
                   },
                   summary: {
                     type: Type.STRING,
-                    description: "Trích yếu nội dung. TUYỆT ĐỐI KHÔNG BỎ SÓT TÊN CÁ NHÂN TRONG VĂN BẢN. TUYỆT ĐỐI GIỮ NGUYÊN NẾU LÀ TIẾNG PHÁP.",
+                    description: "Trích yếu nội dung. Nếu có 1 đến 4 cá nhân thì ghi đầy đủ họ tên; nếu là danh sách trên 4 cá nhân thì TUYỆT ĐỐI KHÔNG liệt kê tên từng cá nhân mà ghi khái quát chung; TUYỆT ĐỐI GIỮ NGUYÊN NẾU LÀ TIẾNG PHÁP.",
                   },
                   authority: {
                     type: Type.STRING,
